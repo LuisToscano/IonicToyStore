@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title></title>
+
+
+        <link href="css/ionic.app.css" rel="stylesheet">
+
+        <!-- ionic/angularjs js -->
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+        <!-- cordova script (this will be a 404 during development) -->
+        <script src="cordova.js"></script>
+
+        <!-- your app's js -->
+        <script src="js/app.js"></script>
+        <script src="js/toy-store.js" type="text/javascript"></script>
+    </head>
+    <body ng-app="store" ng-controller="toyController as toyCtrl">
+    <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">Juguetes</h1>
+    </ion-header-bar>
+    <ion-content has-header="true">
+        <div class="list">
+            <div class="item item-input-inset">
+                <label class="item-input-wrapper">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input type="text" placeholder="Buscar" ng-model="search">
+                </label>
+                <button class="button button-small button-calm" ng-click="openNewToy()">
+                    Nuevo
+                </button>
+            </div>
+            <div class="item" ng-show="toyListEmpty()">
+                No hay juguetes para mostrar
+            </div>
+        </div>  
+        <div class="list card" ng-hide="toyListEmpty()">
+            <div class="item no-padding" ng-repeat="toy in toys | filter:{name:search}" toy-container></div>
+        </div>
+    </ion-content>
+
+    <script id="new-toy.html" type="text/ng-template">
+        <div class="modal">
+
+        <!-- Modal header bar -->
+        <ion-header-bar class="bar-secondary">
+        <h1 class="title">Nuevo Juguete</h1>
+        <button class="button button-clear button-assertive" ng-click="closeNewToy()">Volver</button>
+        </ion-header-bar>
+
+        <!-- Modal content area -->
+        <ion-content>
+
+        <form ng-submit="addToy()">
+            <div class="list">
+            <label class="item item-input">
+             <input type="text" placeholder="Nombre" ng-model="newtoy.name">
+            </label>
+            <label class="item item-input">
+             <textarea placeholder="Descripcion" ng-model="newtoy.description"></textarea>
+            </label>
+            </div>
+            <div class="padding">
+            <button type="submit" class="button button-block button-positive">Guardar</button>
+            </div>
+        </form>
+
+        </ion-content>
+        </div>
+    </script>
+    
+    <script id="new-comment.html" type="text/ng-template">
+        <div class="modal">
+
+        <!-- Modal header bar -->
+        <ion-header-bar class="bar-secondary">
+        <h1 class="title">Comentario para {{curToy.name}}</h1>
+        <button class="button button-clear button-assertive" ng-click="closeNewComment()">Volver</button>
+        </ion-header-bar>
+
+        <!-- Modal content area -->
+        <ion-content>
+
+        <form ng-submit="addComment()">
+            <div class="list">
+            <label class="item item-input">
+             <input type="text" placeholder="Autor" ng-model="newcomment.author">
+            </label>
+            <label class="item item-input">
+             <textarea placeholder="Comentario" ng-model="newcomment.body"></textarea>
+            </label>
+            </div>
+            <div class="padding">
+            <button type="submit" class="button button-block button-positive">Guardar</button>
+            </div>
+        </form>
+
+        </ion-content>
+        </div>
+    </script>
+</body>
+</html>

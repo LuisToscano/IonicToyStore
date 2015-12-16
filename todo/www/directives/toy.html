@@ -1,0 +1,18 @@
+<div class="list">
+    <div class="item item-divider" ng-click="toggleInfoVisible(toy)">
+        {{toy.name}}
+    </div>
+    <div class="item" ng-show="toy.info_visible">
+        <p>{{toy.description}}</p>
+    </div>
+    <div class="item list" ng-show="toy.info_visible">
+        <div class="item comentario item-icon-right" ng-click="toggleCommentsVisible(toy)">
+            Comentarios ({{toy.comments.length}})
+            <i class="icon ion-plus" ng-click="openNewComment(toy)"></i>
+        </div>
+        <div class="item" ng-repeat="comment in toy.comments" ng-show="toy.info_visible && toy.comments_visible">
+            <p>"{{comment.body}}"</p>
+            <cite>by {{comment.author}}</cite>
+        </div>
+    </div>
+</div>
