@@ -13,7 +13,7 @@
                 };
             })
             
-            .controller("toyController", function($toys, $scope, $ionicModal){
+            .controller("toyController", ["$toys", "$scope", "$ionicModal", function($toys, $scope, $ionicModal){
                 $scope.toys = $toys.list;
                 $scope.search = "";
                 $scope.newtoy = {};
@@ -40,6 +40,10 @@
                     $toys.addToy($scope.newtoy);
                     $scope.newtoy = {};
                     $scope.toyModal.hide();
+                };
+                
+                $scope.removeToy = function(toy){
+                    $toys.removeToy(toy);
                 };
                 
                 $scope.openNewComment = function (toy) {
@@ -84,7 +88,7 @@
                     scope: $scope,
                     animation: 'slide-in-up'
                 });
-            })
+            }])
             
             .service("$toys", function(){
                 this.list = window.localStorage['toys'] ? angular.fromJson(window.localStorage['toys']) : [];

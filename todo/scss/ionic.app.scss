@@ -25,30 +25,49 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     padding: 0px !important;
 }
 
-.list .item.item-divider:not(.comentario){
-    background-color: $positive;
-    color: #FFF;
-    font-size: 1rem;
-}
-
-.item.comentario{
-    background: #a9a9a9;
-    color: #FFF;
-    font-size: 0.9rem;
-    padding: {
-        top: 0.5rem;
-        right: 1rem;
-        left: 1rem;
-        bottom: 0.5rem;
+.list .item
+{
+    p{
+        white-space: normal;
     }
+    
+    &.description{
         i{
-           color: #FFF;
-           font-size: 1.2rem;
+            opacity: 0.3;
+            font-size: 1rem;
+            color: darkred;
+            &:hover{
+                opacity: 1;
+                cursor: pointer;
+            }
         }
-}
+    }
+    
+    &.titulo_comentario{
+        background: #a9a9a9;
+        color: #FFF;
+        font-size: 0.9rem;
+        padding: {
+            top: 0.5rem;
+            right: 1rem;
+            left: 1rem;
+            bottom: 0.5rem;
+        }
+        i{
+            color: #FFF;
+            font-size: 1.2rem;
+        }
+    }
 
-.item.list{
-    padding: 0px;
+    &.list{
+        padding: 0px;
+    }
+
+    &.item-divider:not(.titulo_comentario){
+        background-color: $positive;
+        color: #FFF;
+        font-size: 1rem;
+    }
 }
 
 cite{

@@ -9734,12 +9734,18 @@ a.button {
 .no-padding {
   padding: 0px !important; }
 
-.list .item.item-divider:not(.comentario) {
-  background-color: #387ef5;
-  color: #FFF;
-  font-size: 1rem; }
+.list .item p {
+  white-space: normal; }
 
-.item.comentario {
+.list .item.description i {
+  opacity: 0.3;
+  font-size: 1rem;
+  color: darkred; }
+  .list .item.description i:hover {
+    opacity: 1;
+    cursor: pointer; }
+
+.list .item.titulo_comentario {
   background: #a9a9a9;
   color: #FFF;
   font-size: 0.9rem;
@@ -9747,12 +9753,17 @@ a.button {
   padding-right: 1rem;
   padding-left: 1rem;
   padding-bottom: 0.5rem; }
-  .item.comentario i {
+  .list .item.titulo_comentario i {
     color: #FFF;
     font-size: 1.2rem; }
 
-.item.list {
+.list .item.list {
   padding: 0px; }
+
+.list .item.item-divider:not(.titulo_comentario) {
+  background-color: #387ef5;
+  color: #FFF;
+  font-size: 1rem; }
 
 cite {
   font-style: italic;

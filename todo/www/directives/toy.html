@@ -2,11 +2,12 @@
     <div class="item item-divider" ng-click="toggleInfoVisible(toy)">
         {{toy.name}}
     </div>
-    <div class="item" ng-show="toy.info_visible">
+    <div class="item item-icon-right description" ng-show="toy.info_visible">
         <p>{{toy.description}}</p>
+        <i class="icon ion-close" ng-click="deleteToy(toy)"></i>
     </div>
     <div class="item list" ng-show="toy.info_visible">
-        <div class="item comentario item-icon-right" ng-click="toggleCommentsVisible(toy)">
+        <div class="item titulo_comentario item-icon-right" ng-click="toggleCommentsVisible(toy)">
             Comentarios ({{toy.comments.length}})
             <i class="icon ion-plus" ng-click="openNewComment(toy)"></i>
         </div>
