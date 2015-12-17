@@ -3,7 +3,6 @@
   "app_id": "",
   "gulpStartupTasks": [
     "sass",
-    "prepare-js",
     "ugly-js",
     "watch"
   ],

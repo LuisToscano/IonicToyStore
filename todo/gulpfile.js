@@ -30,18 +30,22 @@ gulp.task('sass', function (done) {
 });
 
 gulp.task('prepare-js', function (done) {
-	gulp.src(['./www/js/base/app.js','./www/js/base/toy-store.js'])
-                .pipe(concat('concat.js'))
-		.pipe(ngAnnotate())
-                .on('error', gutil.log)
-                .pipe(rename({extname: '.min.js'}))
-		.pipe(gulp.dest('./temp-js/'))
-                .on('end', done);
-        
+    gulp.src(['./www/js/base/app.js', './www/js/base/toy-store.js'])
+            .pipe(concat('concat.js'))
+            .pipe(ngAnnotate())
+            .on('error', gutil.log)
+            .pipe(rename({extname: '.min.js'}))
+            .pipe(gulp.dest('./temp-js/'))
+            .on('end', done);
 });
 
 gulp.task('ugly-js', function (done) {
-    gulp.src('./temp-js/concat.min.js')
+    gulp.src(['./www/js/base/app.js', './www/js/base/toy-store.js'])
+            .pipe(concat('concat.js'))
+            .pipe(ngAnnotate())
+            .on('error', gutil.log)
+            .pipe(rename({extname: '.min.js'}))
+            .pipe(gulp.dest('./temp-js/'))
             .pipe(ugly())
             .on('error', gutil.log)
             .pipe(rename('ugly.js'))
@@ -51,7 +55,7 @@ gulp.task('ugly-js', function (done) {
 
 gulp.task('watch', function () {
     gulp.watch(paths.sass, ['sass']);
-    gulp.watch(paths.js, ['prepare-js','ugly-js']);
+    gulp.watch(paths.js, ['ugly-js']);
 });
 
 gulp.task('install', ['git-check'], function () {

@@ -51,14 +51,17 @@
         <!-- Modal content area -->
         <ion-content>
 
-        <form ng-submit="addToy()">
+        <form name="addToyForm" ng-submit="addToy(addToyForm.$valid)" ng-class="classSubmitted()" novalidate>
             <div class="list">
             <label class="item item-input">
-             <input type="text" placeholder="Nombre" ng-model="newtoy.name">
+             <input type="text" placeholder="Nombre" ng-model="newtoy.name" required>
             </label>
             <label class="item item-input">
-             <textarea placeholder="Descripcion" ng-model="newtoy.description"></textarea>
+             <textarea placeholder="Descripcion" ng-model="newtoy.description" required></textarea>
             </label>
+            </div>
+            <div class="padding-left errorMessage" ng-show="toySubmitted && !addToyForm.$valid">
+                No puedes dejar campos vacíos
             </div>
             <div class="padding">
             <button type="submit" class="button button-block button-positive">Guardar</button>

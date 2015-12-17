@@ -13,12 +13,14 @@
                 };
             })
 
-            .controller("toyController", function ($toys, $scope, $ionicModal,$ionicPopup) {
+            .controller("toyController", function ($toys, $scope, $ionicModal, $ionicPopup) {
                 $scope.toys = $toys.list;
                 $scope.search = "";
                 $scope.newtoy = {};
                 $scope.newcomment = {};
                 $scope.curToy = {};
+
+                $scope.toySubmitted = false;
 
                 $scope.toyListEmpty = function () {
                     return $scope.toys.length === 0;
@@ -28,16 +30,21 @@
                     return toy.comments.length === 0;
                 };
 
-                $scope.addToy = function () {
-                    $toys.addToy($scope.newtoy);
-                    $scope.newtoy = {};
-                    $scope.toyModal.hide();
+                $scope.addToy = function (valid) {
+                    $scope.toySubmitted = true;
+                     if(valid)
+                     {
+                        $toys.addToy($scope.newtoy);
+                        $scope.newtoy = {};
+                        $scope.toyModal.hide();
+                        $scope.toySubmitted = false;
+                     }
                 };
 
                 $scope.deleteToy = function (toy) {
                     var confirmPopup = $ionicPopup.confirm({
                         title: 'Borrar juguete',
-                        template: 'Realmente quieres borrar "'+toy.name+'"?'
+                        template: 'Realmente quieres borrar "' + toy.name + '"?'
                     });
                     confirmPopup.then(function (res) {
                         if (res) {
@@ -79,6 +86,8 @@
 
                 $scope.closeNewToy = function () {
                     $scope.toyModal.hide();
+                    $scope.newtoy = {};
+                    $scope.toySubmitted = false;
                 };
 
                 //NUEVO COMENTARIO
@@ -117,19 +126,18 @@
                     });
                     window.localStorage['toys'] = angular.toJson(this.list);
                 };
-                
+
                 this.deleteToy = function (toy) {
                     var index = this.list.indexOf(toy);
-                    if(index >= 0){
+                    if (index >= 0) {
                         this.list.splice(index, 1);
                         window.localStorage['toys'] = angular.toJson(this.list);
-                    }
-                    else{
+                    } else {
                         console.error("Object does not exist.");
                         console.log(toy);
                     }
                 };
-                
+
 
                 this.addComment = function (toy, comment) {
                     toy.comments.push({
