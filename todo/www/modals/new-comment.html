@@ -1,0 +1,30 @@
+<div class="modal">
+
+    <!-- Modal header bar -->
+    <ion-header-bar class="bar-secondary">
+        <h1 class="title">Comentario para {{curToy.name}}</h1>
+        <button class="button button-clear button-assertive" ng-click="newComment.close()">Volver</button>
+    </ion-header-bar>
+
+    <!-- Modal content area -->
+    <ion-content>
+
+        <form name="addCommentForm" ng-submit="addComment(addCommentForm.$valid)" novalidate>
+            <div class="list">
+                <label class="item item-input">
+                    <input type="text" placeholder="Autor" ng-model="newComment.val.author" required>
+                </label>
+                <label class="item item-input">
+                    <textarea placeholder="Comentario" ng-model="newComment.val.body" required></textarea>
+                </label>
+            </div>
+            <div class="padding-left errorMessage" ng-show="newComment.submitted && !addCommentForm.$valid">
+                No puedes dejar campos vacíos
+            </div>
+            <div class="padding">
+                <button type="submit" class="button button-block button-positive">Guardar</button>
+            </div>
+        </form>
+
+    </ion-content>
+</div>

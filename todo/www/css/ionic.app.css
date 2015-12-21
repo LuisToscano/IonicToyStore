@@ -9737,13 +9737,16 @@ a.button {
 .list .item p {
   white-space: normal; }
 
-.list .item.description i {
+.list .item.description button i {
   opacity: 0.3;
   font-size: 1rem;
   color: darkred; }
-  .list .item.description i:hover {
-    opacity: 1;
-    cursor: pointer; }
+  .list .item.description button i.gray {
+    color: gray; }
+
+.list .item.description button:hover i {
+  opacity: 1;
+  cursor: pointer; }
 
 .list .item.titulo_comentario {
   background: #a9a9a9;

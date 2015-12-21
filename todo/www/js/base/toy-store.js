@@ -16,31 +16,35 @@
             .controller("toyController", function ($toys, $scope, $ionicModal, $ionicPopup) {
                 $scope.toys = $toys.list;
                 $scope.search = "";
-                $scope.newtoy = {};
-                $scope.newcomment = {};
                 $scope.curToy = {};
-
-                $scope.toySubmitted = false;
-
+                
                 $scope.toyListEmpty = function () {
                     return $scope.toys.length === 0;
                 };
-
                 $scope.commentListEmpty = function (toy) {
                     return toy.comments.length === 0;
                 };
-
-                $scope.addToy = function (valid) {
-                    $scope.toySubmitted = true;
-                     if(valid)
-                     {
-                        $toys.addToy($scope.newtoy);
-                        $scope.newtoy = {};
-                        $scope.toyModal.hide();
-                        $scope.toySubmitted = false;
-                     }
+                $scope.toggleInfoVisible = function (toy) {
+                    $toys.toggleInfo(toy);
+                };
+                $scope.toggleCommentsVisible = function (toy) {
+                    if (toy.comments.length > 0) {
+                        $toys.toggleComments(toy);
+                    }
                 };
 
+                $scope.newToy = new modalForm($ionicModal, $scope, "modals/new-toy.html");
+                $scope.editToy = new modalForm($ionicModal, $scope, "modals/edit-toy.html");
+                $scope.newComment = new modalForm($ionicModal, $scope, "modals/edit-toy.html");
+                
+                $scope.addToy = function (valid) {
+                    $scope.newToy.submitted = true;
+                    if (valid)
+                    {
+                        $toys.addToy($scope.newToy.val);
+                        $scope.newToy.close();
+                    }
+                };
                 $scope.deleteToy = function (toy) {
                     var confirmPopup = $ionicPopup.confirm({
                         title: 'Borrar juguete',
@@ -52,65 +56,20 @@
                         }
                     });
                 };
-
-                $scope.addComment = function () {
-                    $toys.addComment($scope.curToy, $scope.newcomment);
-                    $scope.newcomment = {};
-                    $scope.curToy = {};
-                    $scope.commentModal.hide();
+                
+                $scope.openComment = function (toy){
+                    $scope.curToy = toy;
+                    $scope.newComment.open();
                 };
-
-                $scope.toggleInfoVisible = function (toy) {
-                    $toys.toggleInfo(toy);
-                };
-
-                $scope.toggleCommentsVisible = function (toy) {
-                    if (toy.comments.length > 0) {
-                        $toys.toggleComments(toy);
+                $scope.addComment = function (valid) {
+                    $scope.newComment.submitted = true;
+                    if (valid)
+                    {
+                        $toys.addComment($scope.curToy, $scope.newComment.val);
+                        $scope.curToy = {};
+                        $scope.newComment.close();
                     }
                 };
-
-                //<editor-fold defaultstate="collapsed" desc="MODALS">
-
-                //NUEVO JUGUETE
-                $ionicModal.fromTemplateUrl('new-toy.html', function (modal) {
-                    $scope.toyModal = modal;
-                }, {
-                    scope: $scope,
-                    animation: 'slide-in-up'
-                });
-
-                $scope.openNewToy = function () {
-                    $scope.toyModal.show();
-                };
-
-                $scope.closeNewToy = function () {
-                    $scope.toyModal.hide();
-                    $scope.newtoy = {};
-                    $scope.toySubmitted = false;
-                };
-
-                //NUEVO COMENTARIO
-                $ionicModal.fromTemplateUrl('new-comment.html', function (modal) {
-                    $scope.commentModal = modal;
-                }, {
-                    scope: $scope,
-                    animation: 'slide-in-up'
-                });
-
-                $scope.openNewComment = function (toy) {
-                    $scope.curToy = toy;
-                    console.log($scope.curToy);
-                    $scope.commentModal.show();
-                };
-
-                $scope.closeNewComment = function () {
-                    $scope.commentModal.hide();
-                    $scope.curToy = {};
-                };
-                //</editor-fold>
-
-
             })
 
             .service("$toys", function () {
@@ -159,4 +118,28 @@
             });
     ;
 })();
+
+function modalForm($ionicModal, $scope, url) {
+
+    this.submitted = false;
+    this.val = {};
+    var that = this;
+
+    $ionicModal.fromTemplateUrl(url, function (modal) {
+        that.modal = modal;
+    }, {
+        scope: $scope,
+        animation: 'slide-in-up'
+    });
+
+    this.open = function () {
+        this.modal.show();
+    };
+
+    this.close = function () {
+        this.modal.hide();
+        this.val = {};
+        this.submitted = false;
+    };
+}
 

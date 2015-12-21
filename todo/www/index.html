@@ -26,7 +26,7 @@
                     <i class="icon ion-search placeholder-icon"></i>
                     <input type="text" placeholder="Buscar" ng-model="search">
                 </label>
-                <button class="button button-small button-calm" ng-click="openNewToy()">
+                <button class="button button-small button-calm" ng-click="newToy.open()">
                     Nuevo
                 </button>
             </div>
@@ -35,70 +35,8 @@
             </div>
         </div>  
         <div class="list card" ng-hide="toyListEmpty()">
-            <div class="item no-padding" ng-repeat="toy in toys | filter:{name:search}" toy-container></div>
+            <div class="item no-padding" ng-repeat="toy in toys| filter:{name:search}" toy-container></div>
         </div>
     </ion-content>
-    <!--MODALS-->
-    <script id="new-toy.html" type="text/ng-template">
-        <div class="modal">
-
-        <!-- Modal header bar -->
-        <ion-header-bar class="bar-secondary">
-        <h1 class="title">Nuevo Juguete</h1>
-        <button class="button button-clear button-assertive" ng-click="closeNewToy()">Volver</button>
-        </ion-header-bar>
-
-        <!-- Modal content area -->
-        <ion-content>
-
-        <form name="addToyForm" ng-submit="addToy(addToyForm.$valid)" ng-class="classSubmitted()" novalidate>
-            <div class="list">
-            <label class="item item-input">
-             <input type="text" placeholder="Nombre" ng-model="newtoy.name" required>
-            </label>
-            <label class="item item-input">
-             <textarea placeholder="Descripcion" ng-model="newtoy.description" required></textarea>
-            </label>
-            </div>
-            <div class="padding-left errorMessage" ng-show="toySubmitted && !addToyForm.$valid">
-                No puedes dejar campos vacíos
-            </div>
-            <div class="padding">
-            <button type="submit" class="button button-block button-positive">Guardar</button>
-            </div>
-        </form>
-
-        </ion-content>
-        </div>
-    </script>
-    <script id="new-comment.html" type="text/ng-template">
-        <div class="modal">
-
-        <!-- Modal header bar -->
-        <ion-header-bar class="bar-secondary">
-        <h1 class="title">Comentario para {{curToy.name}}</h1>
-        <button class="button button-clear button-assertive" ng-click="closeNewComment()">Volver</button>
-        </ion-header-bar>
-
-        <!-- Modal content area -->
-        <ion-content>
-
-        <form ng-submit="addComment()">
-            <div class="list">
-            <label class="item item-input">
-             <input type="text" placeholder="Autor" ng-model="newcomment.author">
-            </label>
-            <label class="item item-input">
-             <textarea placeholder="Comentario" ng-model="newcomment.body"></textarea>
-            </label>
-            </div>
-            <div class="padding">
-            <button type="submit" class="button button-block button-positive">Guardar</button>
-            </div>
-        </form>
-
-        </ion-content>
-        </div>
-    </script>
 </body>
 </html>

@@ -30,19 +30,27 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     p{
         white-space: normal;
     }
-    
+
     &.description{
-        i{
-            opacity: 0.3;
-            font-size: 1rem;
-            color: darkred;
+        button {
+            i{
+                opacity: 0.3;
+                font-size: 1rem;
+                color: darkred;
+                &.gray{
+                    color: gray;
+                }
+            }
+
             &:hover{
-                opacity: 1;
-                cursor: pointer;
+                i{
+                    opacity: 1;
+                    cursor: pointer;
+                }
             }
         }
     }
-    
+
     &.titulo_comentario{
         background: #a9a9a9;
         color: #FFF;

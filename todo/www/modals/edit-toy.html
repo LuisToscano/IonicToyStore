@@ -1,0 +1,30 @@
+<div class="modal">
+
+    <!-- Modal header bar -->
+    <ion-header-bar class="bar-secondary">
+        <h1 class="title">Editar Juguete</h1>
+        <button class="button button-clear button-assertive" ng-click="editToy.close()">Volver</button>
+    </ion-header-bar>
+
+    <!-- Modal content area -->
+    <ion-content>
+
+        <form name="editToyForm" ng-submit="editToy(editToyForm.$valid)" novalidate>
+            <div class="list">
+                <label class="item item-input">
+                    <input type="text" placeholder="Nombre" ng-model="editToy.val.name" value="curToy.name" required>
+                </label>
+                <label class="item item-input">
+                    <textarea placeholder="Descripcion" ng-model="editToy.val.description" required>{{curToy.description}}</textarea>
+                </label>
+            </div>
+            <div class="padding-left errorMessage" ng-show="editToy.submitted && !editToyForm.$valid">
+                No puedes dejar campos vacíos
+            </div>
+            <div class="padding">
+                <button type="submit" class="button button-block button-positive">Guardar</button>
+            </div>
+        </form>
+
+    </ion-content>
+</div>
