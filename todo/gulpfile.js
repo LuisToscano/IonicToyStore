@@ -11,7 +11,7 @@ var ngAnnotate = require('gulp-ng-annotate');
 
 var paths = {
     sass: ['./scss/**/*.scss'],
-    js: ['./www/js/base/*.js']
+    js: ['./base/*.js']
 };
 
 gulp.task('default', ['sass']);
@@ -29,26 +29,16 @@ gulp.task('sass', function (done) {
             .on('end', done);
 });
 
-gulp.task('prepare-js', function (done) {
-    gulp.src(['./www/js/base/app.js', './www/js/base/toy-store.js'])
-            .pipe(concat('concat.js'))
-            .pipe(ngAnnotate())
-            .on('error', gutil.log)
-            .pipe(rename({extname: '.min.js'}))
-            .pipe(gulp.dest('./temp-js/'))
-            .on('end', done);
-});
-
 gulp.task('ugly-js', function (done) {
-    gulp.src(['./www/js/base/app.js', './www/js/base/toy-store.js'])
+    gulp.src(['./base/*.js'])
             .pipe(concat('concat.js'))
             .pipe(ngAnnotate())
             .on('error', gutil.log)
             .pipe(rename({extname: '.min.js'}))
-            .pipe(gulp.dest('./temp-js/'))
+            .pipe(gulp.dest('./base/concat'))
             .pipe(ugly())
             .on('error', gutil.log)
-            .pipe(rename('ugly.js'))
+            .pipe(rename('main.js'))
             .pipe(gulp.dest('./www/js/'))
             .on('end', done);
 });
